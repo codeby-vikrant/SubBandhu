@@ -5,9 +5,9 @@
 @import "nativewind/theme";
 
 @theme {
-  --color-background: #fde7ff;
+  --color-background: #f4edec;
   --color-foreground: #081126;
-  --color-card: #fbceff;
+  --color-card: #ebdedd;
   --color-muted: #f6eecf;
   --color-muted-foreground: rgba(0, 0, 0, 0.6);
   --color-primary: #081126;
