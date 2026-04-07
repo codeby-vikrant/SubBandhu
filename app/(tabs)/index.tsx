@@ -1,8 +1,8 @@
 import CreateSubscriptionModal from "@/components/CreateSubscriptionModal";
+import EditBalanceModal from "@/components/EditBalanceModal";
 import ListHeading from "@/components/ListHeading";
 import SubscriptionCard from "@/components/SubscriptionCard";
 import UpcomingSubscriptionCard from "@/components/UpcomingSubscriptionCard";
-import { HOME_BALANCE } from "@/constants/data";
 import { icons } from "@/constants/icons";
 import images from "@/constants/images";
 import "@/global.css";
@@ -26,6 +26,9 @@ export default function App() {
   >(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { subscriptions, addSubscription } = useSubscriptionStore();
+  const [balance, setBalance] = useState(0);
+  const [nextRenewalDate, setNextRenewalDate] = useState(dayjs().add(7, "day"));
+  const [isEditingBalance, setIsEditingBalance] = useState(false);
 
   const upcomingSubscriptions = useMemo(() => {
     const now = dayjs();
@@ -95,19 +98,20 @@ export default function App() {
               </Pressable>
             </View>
 
-            <View className="home-balance-card">
+            <Pressable
+              onPress={() => setIsEditingBalance(true)}
+              className="home-balance-card"
+            >
               <Text className="home-balance-label">Balance</Text>
-
               <View className="home-balance-row">
                 <Text className="home-balance-amount">
-                  {formatCurrency(HOME_BALANCE.amount)}
+                  {formatCurrency(balance)}
                 </Text>
-
                 <Text className="home-balance-date">
-                  {dayjs(HOME_BALANCE.nextRenewalDate).format("MM/DD")}
+                  {dayjs(nextRenewalDate).format("MM/DD")}
                 </Text>
               </View>
-            </View>
+            </Pressable>
 
             <View className="mb-5">
               <ListHeading title="Upcoming" />
@@ -149,6 +153,19 @@ export default function App() {
         contentContainerClassName="pb-30"
       />
 
+      {isEditingBalance && (
+        <EditBalanceModal
+          visible={isEditingBalance}
+          onClose={() => setIsEditingBalance(false)}
+          initialBalance={balance}
+          initialRenewalDate={nextRenewalDate}
+          onSubmit={(data) => {
+            setBalance(data.balance);
+            setNextRenewalDate(dayjs(data.renewalDate));
+            setIsEditingBalance(false);
+          }}
+        />
+      )}
       <CreateSubscriptionModal
         visible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
