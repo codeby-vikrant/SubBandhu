@@ -1,5 +1,4 @@
 import SubscriptionCard from "@/components/SubscriptionCard";
-import { HOME_SUBSCRIPTIONS } from "@/constants/data";
 import { useSubscriptionStore } from "@/lib/subscriptionStore";
 import { styled } from "nativewind";
 import { useState } from "react";
@@ -58,6 +57,7 @@ const Subscriptions = () => {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
+        contentContainerClassName="pb-30"
       />
     </SafeAreaView>
   );

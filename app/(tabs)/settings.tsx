@@ -63,24 +63,33 @@ const Settings = () => {
         <View className="gap-2">
           <View className="flex-row justify-between items-center py-2">
             <Text className="text-sm font-sans-medium text-muted-foreground">
-              Account ID
-            </Text>
-            <Text
-              className="text-sm font-sans-medium text-primary"
-              numberOfLines={1}
-              ellipsizeMode="tail"
-            >
-              {user?.id?.substring(0, 20)}...
-            </Text>
-          </View>
-          <View className="flex-row justify-between items-center py-2">
-            <Text className="text-sm font-sans-medium text-muted-foreground">
               Joined
             </Text>
             <Text className="text-sm font-sans-medium text-primary">
               {user?.createdAt
                 ? new Date(user.createdAt).toLocaleDateString()
                 : "N/A"}
+            </Text>
+          </View>
+          <View className="flex-row justify-between items-center py-2">
+            <Text className="text-sm font-sans-medium text-muted-foreground">
+              Email
+            </Text>
+            <Text
+              className="text-sm font-sans-medium text-primary"
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {email || "N/A"}
+            </Text>
+          </View>
+
+          <View className="flex-row justify-between items-center py-2">
+            <Text className="text-sm font-sans-medium text-muted-foreground">
+              Plan
+            </Text>
+            <Text className="text-sm font-sans-medium text-primary">
+              Free
             </Text>
           </View>
         </View>
