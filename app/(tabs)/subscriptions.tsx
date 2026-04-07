@@ -1,7 +1,8 @@
 import SubscriptionCard from "@/components/SubscriptionCard";
 import { useSubscriptionStore } from "@/lib/subscriptionStore";
+import { useUser } from "@clerk/expo";
 import { styled } from "nativewind";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, Text, TextInput, View } from "react-native";
 import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 
@@ -10,7 +11,13 @@ const SafeAreaView = styled(RNSafeAreaView);
 const Subscriptions = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const { subscriptions } = useSubscriptionStore();
+  const { subscriptions, fetchData } = useSubscriptionStore();
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user?.id) fetchData(user.id);
+  }, [fetchData, user]);
 
   const filteredSubscriptions = subscriptions.filter(
     (subscription) =>

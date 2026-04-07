@@ -76,7 +76,7 @@ const CreateSubscriptionModal = ({
       frequency === "Monthly" ? now.add(1, "month") : now.add(1, "year");
 
     const newSubscription: Subscription = {
-      id: `sub-${Date.now()}`,
+      id: `${Date.now()}-${Math.random()}`,
       name: name.trim(),
       price: priceValue,
       currency: "en-IN",

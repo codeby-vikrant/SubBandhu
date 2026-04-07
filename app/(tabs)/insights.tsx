@@ -1,5 +1,6 @@
 import SubscriptionCard from "@/components/SubscriptionCard";
 import { useSubscriptionStore } from "@/lib/subscriptionStore";
+import { useUser } from "@clerk/expo";
 import { styled } from "nativewind";
 import { usePostHog } from "posthog-react-native";
 import React, { useEffect } from "react";
@@ -14,7 +15,26 @@ const StyledTouchable = styled(TouchableOpacity);
 
 const Insights = () => {
   const posthog = usePostHog();
-  const { subscriptions } = useSubscriptionStore();
+  const { subscriptions, fetchData } = useSubscriptionStore();
+
+  const categoryBreakdown: Record<string, number> = {};
+
+  subscriptions.forEach((sub) => {
+    const key = sub.category || "Other";
+    categoryBreakdown[key] = (categoryBreakdown[key] || 0) + sub.price;
+  });
+
+  const monthlySpending = subscriptions.reduce((acc, sub) => {
+    if (sub.frequency === "Monthly") return acc + sub.price;
+    if (sub.frequency === "Yearly") return acc + sub.price / 12;
+    return acc;
+  }, 0);
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user?.id) fetchData(user.id);
+  }, [fetchData, user]);
 
   useEffect(() => {
     posthog.capture("insights_screen_viewed");
@@ -50,7 +70,6 @@ const Insights = () => {
           <StyledView className="flex-row justify-between items-end h-40">
             {["Mon", "Tue", "Wed", "Thr", "Fri", "Sat", "Sun"].map(
               (day, index) => {
-                const heights = [120, 90, 60, 140, 110, 50, 70];
                 const isActive = index === 3;
 
                 return (
@@ -59,7 +78,7 @@ const Insights = () => {
                     className="items-center justify-end flex-1"
                   >
                     <StyledView
-                      style={{ height: heights[index] }}
+                      style={{ height: Math.min(monthlySpending / 10, 140) }}
                       className={`w-3 rounded-full ${
                         isActive ? "bg-orange-500" : "bg-black"
                       }`}
@@ -88,7 +107,7 @@ const Insights = () => {
 
             <StyledView className="items-end">
               <StyledText className="text-lg font-sans-bold text-foreground">
-                -$424.63
+                ₹{monthlySpending.toFixed(2)}
               </StyledText>
               <StyledText className="text-sm text-green-500">+12%</StyledText>
             </StyledView>
@@ -133,7 +152,7 @@ const Insights = () => {
               onPress={() => {}}
             />
           ))}
-          <StyledView className="pb-30" />
+        <StyledView className="pb-30" />
       </StyledScrollView>
     </SafeAreaView>
   );

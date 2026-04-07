@@ -12,7 +12,7 @@ import { useUser } from "@clerk/expo";
 import dayjs from "dayjs";
 import { styled } from "nativewind";
 import { usePostHog } from "posthog-react-native";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FlatList, Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 const SafeAreaView = styled(RNSafeAreaView);
@@ -21,13 +21,25 @@ export default function App() {
   const { user } = useUser();
   const posthog = usePostHog();
 
+  const userId = user?.id;
+
+  const {
+    subscriptions,
+    addSubscription,
+    balance,
+    nextRenewalDate,
+    fetchData,
+    updateBalance,
+  } = useSubscriptionStore();
+
+  useEffect(() => {
+    if (userId) fetchData(userId);
+  }, [fetchData, userId]);
+
   const [expandedSubscriptionId, setExpandedSubscriptionId] = useState<
     string | null
   >(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { subscriptions, addSubscription } = useSubscriptionStore();
-  const [balance, setBalance] = useState(0);
-  const [nextRenewalDate, setNextRenewalDate] = useState(dayjs().add(7, "day"));
   const [isEditingBalance, setIsEditingBalance] = useState(false);
 
   const upcomingSubscriptions = useMemo(() => {
@@ -62,7 +74,7 @@ export default function App() {
   };
 
   const handleCreateSubscription = (newSubscription: Subscription) => {
-    addSubscription(newSubscription);
+    addSubscription(newSubscription, userId ?? "");
     posthog.capture("subscription_created", {
       subscription_name: newSubscription.name,
       subscription_price: newSubscription.price,
@@ -105,7 +117,7 @@ export default function App() {
               <Text className="home-balance-label">Balance</Text>
               <View className="home-balance-row">
                 <Text className="home-balance-amount">
-                  {formatCurrency(balance)}
+                  {formatCurrency(balance || 0)}
                 </Text>
                 <Text className="home-balance-date">
                   {dayjs(nextRenewalDate).format("MM/DD")}
@@ -158,10 +170,12 @@ export default function App() {
           visible={isEditingBalance}
           onClose={() => setIsEditingBalance(false)}
           initialBalance={balance}
-          initialRenewalDate={nextRenewalDate}
+          initialRenewalDate={nextRenewalDate ?? undefined}
           onSubmit={(data) => {
-            setBalance(data.balance);
-            setNextRenewalDate(dayjs(data.renewalDate));
+            updateBalance(
+              { balance: data.balance, nextRenewalDate: data.renewalDate },
+              userId ?? "",
+            );
             setIsEditingBalance(false);
           }}
         />
