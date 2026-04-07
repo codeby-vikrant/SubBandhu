@@ -1,5 +1,6 @@
 import SubscriptionCard from "@/components/SubscriptionCard";
 import { HOME_SUBSCRIPTIONS } from "@/constants/data";
+import { useSubscriptionStore } from "@/lib/subscriptionStore";
 import { styled } from "nativewind";
 import { useState } from "react";
 import { FlatList, Text, TextInput, View } from "react-native";
@@ -10,8 +11,9 @@ const SafeAreaView = styled(RNSafeAreaView);
 const Subscriptions = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const { subscriptions } = useSubscriptionStore();
 
-  const filteredSubscriptions = HOME_SUBSCRIPTIONS.filter(
+  const filteredSubscriptions = subscriptions.filter(
     (subscription) =>
       subscription.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       subscription.category

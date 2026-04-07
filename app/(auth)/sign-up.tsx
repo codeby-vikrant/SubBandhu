@@ -48,8 +48,7 @@ const SignUp = () => {
 
     if (error) {
       console.error(JSON.stringify(error, null, 2));
-      posthog.capture("sign_up_failed", {
-        error_code: error.code,
+      posthog.capture("user_sign_up_failed", {
         error_message: error.message,
       });
       return;
@@ -126,7 +125,7 @@ const SignUp = () => {
               <View className="auth-brand-block">
                 <View className="auth-logo-wrap">
                   <View className="auth-logo-mark">
-                    <Text className="auth-logo-mark-text">R</Text>
+                    <Text className="auth-logo-mark-text">SB</Text>
                   </View>
                   <View>
                     <Text className="auth-wordmark">SubBandhu</Text>

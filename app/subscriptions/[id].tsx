@@ -1,6 +1,6 @@
 import { Link, useLocalSearchParams } from "expo-router";
 import { usePostHog } from "posthog-react-native";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Text, View } from "react-native";
 
 const SubscriptionDetails = () => {
@@ -8,13 +8,16 @@ const SubscriptionDetails = () => {
   const posthog = usePostHog();
 
   useEffect(() => {
-    posthog.capture("subscription_detail_viewed", { subscription_id: id });
-  }, [posthog, id]);
+    // Only capture if id is valid
+    if (id && typeof id === "string" && id.trim()) {
+      posthog.capture("subscription_details_viewed", { subscription_id: id });
+    }
+  }, [id, posthog]);
 
   return (
     <View>
-      <Text>Subscription Details : {id}</Text>
-      <Link href="/">Go Back</Link>
+      <Text>Subscription Details: {id}</Text>
+      <Link href="/">Go back</Link>
     </View>
   );
 };
