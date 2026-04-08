@@ -73,7 +73,7 @@ const SignIn = () => {
               window.location.href = url;
             } else {
               // On native, just use router navigation
-              router.replace("/(tabs)" as Href);
+              router.replace("/" as Href);
             }
           } else {
             router.replace(url as Href);
@@ -121,7 +121,7 @@ const SignIn = () => {
               window.location.href = url;
             } else {
               // On native, just use router navigation
-              router.replace("/(tabs)" as Href);
+              router.replace("/" as Href);
             }
           } else {
             router.replace(url as Href);
