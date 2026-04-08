@@ -1,50 +1,51 @@
-# Welcome to your Expo app 👋
+# 📱 SubBandhu
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+SubBandhu is a modern subscription management mobile application that helps users track, manage, and stay on top of their recurring expenses with ease.
 
-## Get started
+---
 
-1. Install dependencies
+# 🚀 Features
 
-   ```bash
-   npm install
-   ```
+- 📊 Dynamic Subscription Tracking  
+  Track all your subscriptions in one place with real-time updates.
 
-2. Start the app
+- 💰 Balance Management  
+  Edit and update balance along with renewal dates seamlessly.
 
-   ```bash
-   npx expo start
-   ```
+- 📅 Renewal Reminders  
+  Stay informed about upcoming subscription renewals.
 
-In the output, you'll find options to open the app in a
+- 📈 User Analytics  
+  Integrated with PostHog for tracking user behavior and interactions.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- 🔐 Authentication  
+  Secure login and user management using Clerk.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- 🎨 Clean UI/UX  
+  Modern and intuitive interface for smooth user experience.
 
-## Get a fresh project
+---
 
-When you're ready, run:
+# 🛠️ Tech Stack
 
-```bash
-npm run reset-project
-```
+- Frontend: React Native (Expo)  
+- Language: JavaScript / TypeScript  
+- Authentication: Clerk  
+- Analytics: PostHog  
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+# Screenshots
+![Screenshot_20260408_103757_Expo Go](https://github.com/user-attachments/assets/633722d8-dbd9-4f0d-a492-fe0a64e71d9d)
+![Screenshot_20260408_103803_Expo Go](https://github.com/user-attachments/assets/ad7108ed-c7b3-4238-adde-7733627f1e7c)
+![Screenshot_20260408_103834_Expo Go](https://github.com/user-attachments/assets/b350cff4-b3fa-455b-a9b9-a9b904008397)
+![Screenshot_20260408_103845_Expo Go](https://github.com/user-attachments/assets/3675108b-63a2-411a-81ef-1f54cf7699f8)
+![Screenshot_20260408_103849_Expo Go](https://github.com/user-attachments/assets/9f2a2dc6-70c3-4ac8-b8f5-c00cad0b567f)
+![Screenshot_20260408_103852_Expo Go](https://github.com/user-attachments/assets/4cce4d46-9343-4836-a863-879754909bca)
+![Screenshot_20260408_103917_Expo Go](https://github.com/user-attachments/assets/89bccee3-3f36-44fd-9d81-6a6500b329f9)
 
-To learn more about developing your project with Expo, look at the following resources:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
 
-Join our community of developers creating universal apps.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
